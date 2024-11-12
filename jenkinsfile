@@ -38,7 +38,7 @@ pipeline {
          stage('docker build') {
             steps {
              script {
-                    sh 'docker build -t java-spring .'
+                    sh 'docker build -t img .'
               }
             }
         }
@@ -55,7 +55,7 @@ pipeline {
         stage('docker container') {
             steps {
              script {
-                    sh 'docker run -itd --name ci-cd-container -p 8085:8081 java-spring'
+                    sh 'docker run -itd --name ci-cd-container -p 8085:8081 img'
               }
             }
         }    
