@@ -42,6 +42,16 @@ pipeline {
               }
             }
         }
+           stage('docker push') {
+            steps {
+             script {
+                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                    sh 'docker tag img bunny2003/java-spring'
+                    sh 'docker push bunny2003/java-spring'
+                    }
+                  }
+                }
+              }
         stage('docker container') {
             steps {
              script {
@@ -54,7 +64,7 @@ pipeline {
     post {
         always {
             echo 'slack Notification.'
-            slackSend channel: '#devops2',
+            slackSend channel: '#devops1',
             color: COLOR_MAP [currentBuild.currentResult],
             message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URl}"
             
