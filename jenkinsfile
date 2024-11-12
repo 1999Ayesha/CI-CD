@@ -38,6 +38,7 @@ pipeline {
          stage('docker build') {
             steps {
              script {
+                with DockerRegistry(credentialsId:  'docker-cred', toolname: 'docker') {
                     sh 'docker build -t img .'
               }
             }
