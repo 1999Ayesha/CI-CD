@@ -56,7 +56,9 @@ pipeline {
         stage('docker container') {
             steps {
              script {
+                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
                     sh 'docker run -itd --name ci-cd-container -p 8085:8081 img'
+                }
               }
             }
         }    
